@@ -1,20 +1,22 @@
-# Use the official Python image as a base
 FROM python:3.9
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy requirements.txt first to leverage Docker caching
+# Copy only requirements first for better caching
 COPY requirements.txt .
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application files
+# Copy the rest of the application
 COPY . .
 
-# Expose the port Flask runs on
+# Expose Flask's port
 EXPOSE 5000
 
-# Run the Flask application
+# Set environment variables (optional)
+ENV FLASK_APP=run.py
+ENV FLASK_RUN_HOST=0.0.0.0
+
+# Default command
 CMD ["python", "run.py"]

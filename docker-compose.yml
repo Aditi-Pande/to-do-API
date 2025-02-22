@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   db:
     image: mysql:8.0
@@ -8,8 +6,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: Mysql@123
       MYSQL_DATABASE: task1
-    expose:
-      - "3306"
+    ports:
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
@@ -30,6 +28,7 @@ services:
     environment:
       FLASK_APP: run.py
       FLASK_RUN_HOST: 0.0.0.0
+      DATABASE_URL: "mysql+pymysql://root:Mysql%40123@db:3306/task1"
 
 volumes:
   mysql_data:
